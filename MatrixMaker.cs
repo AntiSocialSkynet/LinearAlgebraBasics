@@ -51,6 +51,27 @@ namespace LinearAlgebraBasics
             return matrix;
         }
         /// <summary>
+        /// Generates a matrix with random integer values
+        /// </summary>
+        /// <param name="row"></param> the rows in the matrix
+        /// <param name="col"></param> the number of columns in the matrix
+        /// <param name="lowerBound"></param> the lowest integer element admitted
+        /// <param name="upperBound"></param> the largest integer element admitted
+        /// <returns>An n by m matrix with random integer entries</returns>
+        public float[,] RandomMatrix(int row, int col, int lowerBound, int upperBound)
+        {
+            Random gen = new Random();
+            float[,] matrix = new float[row, col];
+            for(int i = 0; i < row; i++)
+            {
+                for(int j = 0; j < col; j++)
+                {
+                    matrix[i, j] = (float)(gen.Next(lowerBound, upperBound));
+                }
+            }
+            return matrix;
+        }
+        /// <summary>
         /// Generates the n x n identity matrix
         /// </summary>
         /// <param name="dim"></param> integer the dimension of the matrix
