@@ -85,6 +85,21 @@ namespace LinearAlgebraBasics
             }
             return matrix;
         }
+        /// <summary>
+        /// Method to print out a 2 dimensional matrix with tab-delimiited elements.
+        /// </summary>
+        /// <param name="matrix"></param>
+        public static void MatrixPrinter(float[,] matrix)
+        {
+            for(int i =0;i<matrix.GetLength(0);i++)
+            {
+                for (int j = 0; j < matrix.GetLength(1); j++)
+                {
+                    Console.Write(matrix[i, j] + "\t");
+                }
+                Console.WriteLine();                
+            }
+        }
         
     }
 }

@@ -20,8 +20,8 @@ namespace LinearAlgebraBasics
             for(int i = 0; i < matrix.GetLength(1); i++)
             {
                 Temp = matrix[row1, i];
-                matrix[row2, i] = matrix[row1, i];//The first row swap should be handled here.
-                matrix[row1, i] = Temp;//And the second
+                matrix[row1, i] = matrix[row2, i];//The first row swap should be handled here.
+                matrix[row2, i] = Temp;//And the second
             }
             return matrix;
         } 
