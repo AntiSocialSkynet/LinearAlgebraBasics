@@ -56,17 +56,15 @@ namespace LinearAlgebraBasics
             return matrix;
         }
 
+        /// <summary>
+        /// Returns a matrix in echelon form.
+        /// </summary>
+        /// <param name="matrix"></param>
+        /// <returns></returns>
         public static float[,] EchelonForm(float[,] matrix)
         {
-            int ExistantPivots = 0;
-
-            //test for the maximum number of pivots
-            int MaxPivots;
-            if (matrix.GetLength(0) < matrix.GetLength(1))
-                MaxPivots = matrix.GetLength(0);
-            else MaxPivots = matrix.GetLength(1);
-            
-            //scan across the colums of the matrix
+            int ExistantPivots = 0;            
+            //scan across the columns of the matrix
             for(int j = ExistantPivots; j < matrix.GetLength(1); j++)
             {
                 for (int i = ExistantPivots; i < matrix.GetLength(0); i++)
