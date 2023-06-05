@@ -87,7 +87,11 @@ namespace LinearAlgebraBasics
 
             return matrix;
         }
-       
+       /// <summary>
+       /// Provides a Reduced Echelon Form by eliminating entries above the pivots in an Echelon Form.
+       /// </summary>
+       /// <param name="matrix"></param>
+       /// <returns></returns>
         public static float[,] ReducedEchelonForm(float[,] matrix)//strategy: since each row can contain at most 1 pivot, this function works rowise
         {
             float[,] reducedMatrix = EchelonForm(matrix);

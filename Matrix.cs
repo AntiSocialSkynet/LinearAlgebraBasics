@@ -10,7 +10,7 @@ namespace LinearAlgebraBasics
     /// <summary>
     /// Class which provides basic methods for matrix generation.
     /// </summary>
-   public class MatrixMaker
+   public class Matrix
     {
         /// <summary>
         /// Generates a random matrix of dimensions n x m
@@ -125,6 +125,35 @@ namespace LinearAlgebraBasics
             }
             
             return augmentedMatrix;
+        }
+
+        /// <summary>
+        /// Defines element-by-element addition of two matrices matrix1 and matrix2
+        /// </summary>
+        /// <param name="matrix1"></param>
+        /// <param name="matrix2"></param>
+        /// <returns>returns a matrix containing respective elements summed</returns>
+        public static float[,] Add(float[,] matrix1, float[,] matrix2)
+        {
+            float[,] matrixSum = new float[matrix1.GetLength(0), matrix1.GetLength(1)];
+            for (int i = 0; i < matrix1.GetLength(0); i++)
+            {
+                for (int j = 0; j < matrix1.GetLength(1); j++)
+                    matrixSum[i, j] = matrix1[i, j] + matrix2[i, j];
+            }
+            return matrixSum;
+        }
+        /// <summary>
+        /// Scales a given matrix by a given coefficient
+        /// </summary>
+        /// <param name="matrix"></param>
+        /// <param name="coefficient"></param>
+        /// <returns></returns>
+        public static float[,] Scale(float[,] matrix, float coefficient)
+        {
+            for (int i = 0; i < matrix.GetLength(0);i++) 
+                GaussianElimination.RowScaling(matrix, i, coefficient);
+            return matrix;
         }
         
     }
