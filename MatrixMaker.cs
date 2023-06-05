@@ -20,7 +20,7 @@ namespace LinearAlgebraBasics
         /// <param name="lowerBound"></param> the minimum value tolerated in the entires of the matrix.
         /// <param name="upperBound"></param> the maximum value tolerated in the entries of the matrix
         /// <returns>matrix with random entiries within the bounds set and of the specified dimensions</returns>
-        public float[,] RandomMatrix(int rows,int cols, float lowerBound, float upperBound)
+        public static float[,] RandomMatrix(int rows,int cols, float lowerBound, float upperBound)
         {
             Random gen = new Random(); //gen is short for 'generator'
             float[,] matrix = new float[rows, cols];
@@ -58,7 +58,7 @@ namespace LinearAlgebraBasics
         /// <param name="lowerBound"></param> the lowest integer element admitted
         /// <param name="upperBound"></param> the largest integer element admitted
         /// <returns>An n by m matrix with random integer entries</returns>
-        public float[,] RandomMatrix(int row, int col, int lowerBound, int upperBound)
+        public static float[,] RandomMatrix(int row, int col, int lowerBound, int upperBound)
         {
             Random gen = new Random();
             float[,] matrix = new float[row, col];
@@ -76,7 +76,7 @@ namespace LinearAlgebraBasics
         /// </summary>
         /// <param name="dim"></param> integer the dimension of the matrix
         /// <returns></returns>        
-        public float[,] IdentityMatrix(int dim)
+        public static float[,] IdentityMatrix(int dim)
         {
             float[,] matrix = new float[dim, dim];
             for(int i = 0; i < dim; i++)
@@ -99,6 +99,32 @@ namespace LinearAlgebraBasics
                 }
                 Console.WriteLine();                
             }
+        }
+    
+        /// <summary>
+        /// Takes in a matrix element matrix 1 and augments another matrix element matrix 2 to the left of matrix 1. 
+        /// Matrices 1 and 2 must have the same number of rows.
+        /// </summary>
+        /// <param name="matrix1"></param>
+        /// <param name="matrix2"></param>
+        /// <returns></returns>
+        public static float[,] AugmentMatrix(float[,] matrix1, float[,] matrix2)
+        {
+            float[,] augmentedMatrix = new float[matrix1.GetLength(0), matrix1.GetLength(1) + matrix2.GetLength(1)];
+            //Add the columns together without adding any rows.
+            for(int i = 0; i < matrix1.GetLength(0); i++)
+            {
+                for(int j = 0; j < matrix1.GetLength(1); j++)//populate the columns from the first matrix
+                {
+                    augmentedMatrix[i, j] = matrix1[i, j];
+                }
+                for(int k = matrix1.GetLength(1); k < matrix1.GetLength(1) + matrix2.GetLength(1); k++)//populate the columns from the second matrix
+                {
+                    augmentedMatrix[i, k] = matrix2[i, k - matrix1.GetLength(1)];
+                }
+            }
+            
+            return augmentedMatrix;
         }
         
     }
