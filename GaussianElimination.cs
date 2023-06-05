@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Runtime.CompilerServices;
 
 namespace LinearAlgebraBasics
 {
@@ -85,6 +86,27 @@ namespace LinearAlgebraBasics
             }
 
             return matrix;
+        }
+       
+        public static float[,] ReducedEchelonForm(float[,] matrix)//strategy: since each row can contain at most 1 pivot, this function works rowise
+        {
+            float[,] reducedMatrix = EchelonForm(matrix);
+            for (int i = 0; i < reducedMatrix.GetLength(0);i++)
+            {
+                for(int j = i; j < reducedMatrix.GetLength(1); j++)//We assume the Echelon Form has zeros below a pivot.
+                {
+                    if (reducedMatrix[i,j] != 0)//the first non-zero entry is the pivot for the given row i
+                    {
+                        RowScaling(reducedMatrix, i, 1 / reducedMatrix[i, j]); //normalize the pivot
+                        for(int k = 0; k < j; k++)
+                        {
+                            RowCombination(reducedMatrix, k, j, (-1) * reducedMatrix[k, j]); //create a 0 
+                        }
+                        break;
+                    }
+                }
+            }
+            return reducedMatrix;
         }
     }
 }
