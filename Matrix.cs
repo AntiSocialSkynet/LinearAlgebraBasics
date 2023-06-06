@@ -144,7 +144,8 @@ namespace LinearAlgebraBasics
             return matrixSum;
         }
         /// <summary>
-        /// Scales a given matrix by a given coefficient
+        /// Scales a given matrix by a given coefficient. The coefficient in question should not be zero, as that would invalidate many of the 
+        /// valuable properties of a matrix and would be an irreversible operation. That is, the operation could not be reversed by dividing by zero.
         /// </summary>
         /// <param name="matrix"></param>
         /// <param name="coefficient"></param>
@@ -155,6 +156,55 @@ namespace LinearAlgebraBasics
                 GaussianElimination.RowScaling(matrix, i, coefficient);
             return matrix;
         }
+
         
+        /// <summary>
+        /// Provides a method for multiplying 2 floating point matrices by each other and returns the product. This method uses an implementation by 
+        /// going entry by entry. We compute the inner product between each row and column, as this is the most general method for defining matrix 
+        /// multiplication. In turn, the interior dimensions of the matrices should be equal. This is a core assumption in the definition of matrix 
+        /// multiplication, and a failure to meet this precondition will likely result in an index out of range error.
+        /// </summary>
+        /// <param name="matrix1"></param> An n x m floating point matrix
+        /// <param name="matrix2"></param> An m x p floating point matrix
+        /// <returns> The n x p floating point matrix which is the product of the two matrices. </returns>
+        public static float[,] Multiply(float[,] matrix1, float[,] matrix2)
+        {
+            float matrixEntry = 0;
+            float[,] matrixProduct = new float[matrix1.GetLength(0), matrix2.GetLength(1)];
+            //uses outer dimensions of matrices.
+            for(int i = 0; i < matrix1.GetLength(0); i++)
+            {
+                for(int j = 0; j < matrix2.GetLength(1); j++) //we cycle across the product array, then compute entry by entry
+                {
+                    for(int k = 0; k < matrix1.GetLength(1);k++) //cycle across the interior dimensions of the matrix product.
+                    {
+                        matrixEntry += matrix1[i, k] * matrix2[k, j];   //compute the inner product between the row and column
+                    }
+                    matrixProduct[i, j] = matrixEntry;
+                    matrixEntry = 0;    //assign and reset the matrix entry
+                }
+            }
+            return matrixProduct;
+        }
+
+        /// <summary>
+        /// Provide an implementation of matrix exponentiation. Matrix exponentiation is defined only for square matrices(matrices with the same number of 
+        /// rows and columns, respectively). Exponentiation with non-square matrices may result in an error, as this implementation is based upon repeated 
+        /// calls to the <seealso cref="Multiply(float[,], float[,])"/> function.
+        /// </summary>
+        /// <param name="matrix"></param> The n x n matrix which is desired to exponentiate.
+        /// <param name="power"></param> The exponent to which the matrix will be raised. An power of 0 will return the n dimensional identity matrix.
+        /// <returns></returns>
+        public static float[,] Power(float[,] matrix, int power)
+        {
+            float[,] expMatrix = Matrix.IdentityMatrix(matrix.GetLength(0));
+            for(int i = 0; i< power; i++) //if power = 0; loop is skipped. That means the identity matrix is returned.
+            {
+                expMatrix = Matrix.Multiply(expMatrix, matrix);//each power appends a new product
+            }
+            return expMatrix;
+        }
+
+
     }
 }
